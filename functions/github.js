@@ -5,7 +5,8 @@ function convertToHierarchy(paths) {
   for (let path of paths) {
     buildNodeRecursive(rootNode, path.split('/'), 0);
   }
-  return rootNode.children;
+  const tree = rootNode.children;
+  return tree
 }
 
 function buildNodeRecursive(node, path, idx) {

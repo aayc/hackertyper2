@@ -8,7 +8,7 @@ import Sidebar from "../components/sidebar"
 import FileContentDisplay from "../components/fileContentDisplay"
 
 const IndexPage = () => {
-  useEffect(() => {
+  /*useEffect(() => {
     // examples of calling the API
     fetch("/.netlify/functions/code?repository=aayc/hackertyper2&file=gatsby-config.js")
       .then(response => response.json())
@@ -17,7 +17,7 @@ const IndexPage = () => {
     fetch("/.netlify/functions/dir?repository=aayc/hackertyper2")
       .then(response => response.json())
       .then(body => console.log("Dir", body))
-  });
+  });*/
 
   return (
     <Layout>

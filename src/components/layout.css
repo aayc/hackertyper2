@@ -3,3 +3,15 @@
 @tailwind components;
 
 @tailwind utilities;
+
+.text-sidebar {
+    color: #CCCCCC;
+    font-family: monaco,Consolas,Lucida Console,monospace;
+}
+
+.vscode-bg {
+    background-color: #252525;
+}
+.vscode-bg-dark {
+    background-color: #1E1E1E
+}
