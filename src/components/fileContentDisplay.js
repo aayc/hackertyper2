@@ -11,6 +11,7 @@ const FileContentDisplay = () => {
     column: 1,
     lineNumber: 1,
   })
+  const [stats, setStats] = useState({ n_hacked_on: 0, n_lines_written: 0 })
 
   useEffect(() => {
     setEditor(
@@ -24,7 +25,13 @@ const FileContentDisplay = () => {
 
     server
       .getFileContents("aayc/hackertyper2", "gatsby-config.js")
-      .then(code => setFileContent(code))
+      .then(({ src, n_hacked_on, n_lines_written }) => {
+        setFileContent(src)
+        setStats({
+          n_hacked_on,
+          n_lines_written,
+        })
+      })
   }, [])
 
   useEffect(() => {
@@ -63,7 +70,7 @@ const FileContentDisplay = () => {
         ))} */}
       </div>
       <div id="editor" className="w-full h-full bg-gray-800"></div>
-      <Footer position={cursorPosition} />
+      <Footer position={cursorPosition} stats={stats} />
     </div>
   )
 }
