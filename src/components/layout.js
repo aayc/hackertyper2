@@ -1,17 +1,13 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
 
 import "./layout.css"
 
 const Layout = ({ children }) => {
-
   return (
-    <>
-      <div >
-        <main>{children}</main>
-      </div>
-    </>
+    <div className="absolute inset-0 pb-8">
+      <div className="flex w-full h-full">{children}</div>
+    </div>
   )
 }
 
