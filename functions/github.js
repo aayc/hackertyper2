@@ -1,4 +1,5 @@
 const { doRequest } = require("./util.js");
+const { getRepo } = require("./db.js");
 
 function convertToHierarchy(paths) {
   const rootNode = {name:"root", children:[]}
@@ -21,19 +22,33 @@ function buildNodeRecursive(node, path, idx) {
 }
 
 module.exports = {
-  getGithubFileInfo: async (repo, fname) => {
-    let response = await doRequest("https://api.github.com/repos/" + repo + "/contents/" + fname)
-    let body = JSON.parse(response)
-    let code = Buffer.from(body.content, 'base64').toString('ascii');
-    return {
-      name: fname,
-      src: code,
+  getGithubFileInfo: async (repo, fname, use_db) => {
+    if (use_db) {
+      // TODO don't use just the first file
+      info = await getRepo(repo)
+      return info.files[0]
+    }
+    else {
+      let response = await doRequest("https://api.github.com/repos/" + repo + "/contents/" + fname)
+      let body = JSON.parse(response)
+      let code = Buffer.from(body.content, 'base64').toString('ascii');
+      return {
+        name: fname,
+        src: code,
+      }
     }
   },
-  getGithubRepoTree: async (repo) => {
-    let sha = "af96062bc88d567240e54f8a0be79d8853de6c3f"
-    let response = await doRequest(" https://api.github.com/repos/" + repo + "/git/trees/" + sha + "?recursive=true")
-    let body = JSON.parse(response)
-    return convertToHierarchy(body.tree.map(entry => entry.path))
+  getGithubRepoTree: async (repo, use_db) => {
+    if (use_db) {
+      repo = await getRepo(repo)
+      return repo.tree
+    }
+    else {
+      // TODO update the sha automatically
+      let sha = "af96062bc88d567240e54f8a0be79d8853de6c3f"
+      let response = await doRequest(" https://api.github.com/repos/" + repo + "/git/trees/" + sha + "?recursive=true")
+      let body = JSON.parse(response)
+      return convertToHierarchy(body.tree.map(entry => entry.path))
+    }
   }
 }

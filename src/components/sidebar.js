@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { getFileContents, getRepositoryFiles } from "../server/index.js"
 
+
 const Sidebar = () => {
   const [fileTree, setFileTree] = useState([])
 
