@@ -18,7 +18,6 @@ const IndexPage = () => {
         language: 'javascript',
         automaticLayout: true
       });
-      //monaco.editor.setTheme('vs')
     });
   });
 
@@ -26,10 +25,8 @@ const IndexPage = () => {
     <Layout>
       <SEO title="Home" />
       <div className="page-content">
-        <h1>Try it!</h1>
         <div id="container" style={{ width: 800, height: 600, border: "1px solid #ccc" }}></div>
       </div>
-      <Link to="/page-2/">Go to page 2</Link>
     </Layout>
   )
 }
