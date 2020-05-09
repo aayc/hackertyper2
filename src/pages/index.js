@@ -19,17 +19,15 @@ const IndexPage = () => {
         automaticLayout: true
       });
     });
-    fetch("/.netlify/functions/code", {
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-        }
-      })
-      .then(response => {
-        console.log(response)
-        return response.json()
-      })
+
+    // examples
+    fetch("/.netlify/functions/code")
+      .then(response => response.json())
       .then(code => console.log("Code: ", code))
+
+    fetch("/.netlify/functions/dir")
+      .then(response => response.json())
+      .then(body => console.log("Dir", body))
   });
 
   return (
