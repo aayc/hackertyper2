@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react"
 import * as server from "../server"
 import { editor as monaco } from "monaco-editor"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import cx from "classnames"
 
 const content = `import React from "react"
@@ -70,17 +72,19 @@ const FileContentDisplay = () => {
 
   return (
     <div className="w-full h-full">
-      <div className="flex w-full h-12 bg-gray-800 text-white">
+      <div className="flex w-full h-12 vscode-bg text-white">
         {files.map((file, index) => (
           <button
             className={cx(
-              index === fileIdx ? "bg-black" : "",
+              index === fileIdx ? "vscode-bg-dark" : "",
               "flex px-4 justify-center items-center border-r border-gray-900 cursor-pointer"
             )}
             key={file.name}
             onClick={() => setFileIdx(index)}
           >
-            {file.name}
+            <span>{file.name}</span>
+            <span>&nbsp;&nbsp;&nbsp;</span>
+            {index === fileIdx ? <FontAwesomeIcon icon={faTimes} /> : <div></div>}
           </button>
         ))}
       </div>
