@@ -56,7 +56,7 @@ const FileContentDisplay = () => {
     if (editor) {
       editor.onKeyDown(e => {
         e.preventDefault()
-        files[fileIdx].filledIndex++
+        files[fileIdx].filledIndex += 2
         const file = files[fileIdx]
         editor.setValue(file.content.substring(0, file.filledIndex + 1))
       })
