@@ -1,6 +1,6 @@
-const { getGithubFileInfo, getGithubRepoTree } = require('./github.js')
-const {MongoClient} = require('mongodb');
-require('dotenv').config();
+const { getGithubFileInfo, getGithubRepoTree } = require("./github.js")
+const { MongoClient } = require("mongodb")
+require("dotenv").config()
 const uri = process.env.MONGOLAB_URI
 var connected = false;
 const client = MongoClient(uri)
