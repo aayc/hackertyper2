@@ -1,32 +1,18 @@
-import React, { useEffect } from 'react';
-import { Link } from "gatsby"
+import React from "react"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import Footer from "../components/footer"
+import Sidebar from "../components/sidebar"
+import FileContentDisplay from "../components/fileContentDisplay"
 
 const IndexPage = () => {
-
-  useEffect(() => {
-    import("monaco-editor").then(monaco => {
-      let editor = monaco.editor.create(document.getElementById('container'), {
-        value: [
-          'function x() {',
-          '\tconsole.log("Hello world!");',
-          '}'
-        ].join('\n'),
-        theme: "vs-dark",
-        language: 'javascript',
-        automaticLayout: true
-      });
-    });
-  });
-
   return (
     <Layout>
       <SEO title="Home" />
-      <div className="page-content">
-        <div id="container" style={{ width: 800, height: 600, border: "1px solid #ccc" }}></div>
-      </div>
+      <Sidebar />
+      <FileContentDisplay />
+      <Footer />
     </Layout>
   )
 }
