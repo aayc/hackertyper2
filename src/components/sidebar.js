@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react"
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFile, faKey, faCodeBranch } from '@fortawesome/free-solid-svg-icons'
+import { faJs } from '@fortawesome/free-brands-svg-icons'
+
 const Sidebar = () => {
   const [fileTree, setFileTree] = useState([])
 
@@ -20,9 +24,25 @@ const Sidebar = () => {
       })
   }, [])
 
+  const chooseIcon = (filename) => {
+    if (filename.endsWith(".js")) {
+      return faJs
+    } else if (filename === "LICENSE") {
+      return faKey
+    } else if (filename.endsWith(".gitignore")) {
+      return faCodeBranch
+    } else {
+      return faFile
+    }
+  }
+
   const reifyFileNode = node => {
     if (node.children.length === 0) {
-      return <p key={node.name}>{node.name}</p>
+
+      return (<div class="flex">
+                <span><FontAwesomeIcon icon={chooseIcon(node.name)} />&nbsp;&nbsp;</span>
+                <p key={node.name}>{node.name}</p>
+              </div>)
     } else {
       return <p key={node.name}>{"> " + node.name}</p>
     }
