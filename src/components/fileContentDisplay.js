@@ -44,7 +44,7 @@ const FileContentDisplay = () => {
     if (editor) {
       editor.setValue(fileContent.substring(0, srcIndex))
     }
-  }, [srcIndex])
+  }, [editor, fileContent, srcIndex])
 
   return (
     <div className="w-full h-full">
