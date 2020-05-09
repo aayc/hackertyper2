@@ -38,6 +38,13 @@ async function updateRepoStats(repo, fname, stats) {
   })
 }
 
+async function listRepos() {
+  // TODO Terribly inefficient
+  dbo = await getClient()
+  arr = await dbo.db("github").collection("repos").find({}).toArray()
+  return arr.map(repo => repo.name)
+}
+
 async function clearRepos() {
   dbo = await getClient()
   await dbo.db("github").collection("repos").drop()
@@ -45,6 +52,7 @@ async function clearRepos() {
 
 module.exports = {
   getRepo: getRepo,
+  listRepos: listRepos,
   updateRepoStats: updateRepoStats
 }
 
