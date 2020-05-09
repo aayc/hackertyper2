@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import * as server from "../server"
 import { editor as monaco } from "monaco-editor"
 import cx from "classnames"
 
@@ -23,25 +24,25 @@ const IndexPage = () => {
 
 export default IndexPage`
 
-const files = [
-  {
-    name: "index.js",
-    content,
-    filledIndex: 0,
-  },
-  {
-    name: "file1.js",
-    content: "const a = 123;",
-    filledIndex: 0,
-  },
-]
+// const files = [
+//   {
+//     name: "index.js",
+//     content,
+//     filledIndex: 0,
+//   },
+//   {
+//     name: "file1.js",
+//     content: "const a = 123;",
+//     filledIndex: 0,
+//   },
+// ]
 
 const FileContentDisplay = () => {
   const [fileIdx, setFileIdx] = useState(0)
   const [editor, setEditor] = useState(null)
+  const [files, setFiles] = useState([])
 
   useEffect(() => {
-    console.log("using effect")
     setEditor(
       monaco.create(document.getElementById("editor"), {
         value: "",
@@ -50,15 +51,19 @@ const FileContentDisplay = () => {
         automaticLayout: true,
       })
     )
+
+    server
+      .getFileContents("aayc/hackertyper2", "gatsby-config.js")
+      .then(code => console.log(code))
   }, [])
 
   useEffect(() => {
     if (editor) {
       editor.onKeyDown(e => {
         e.preventDefault()
-        files[fileIdx].filledIndex += 2
-        const file = files[fileIdx]
-        editor.setValue(file.content.substring(0, file.filledIndex + 1))
+        // files[fileIdx].filledIndex += 2
+        // const file = files[fileIdx]
+        // editor.setValue(file.content.substring(0, file.filledIndex + 1))
       })
     }
   }, [editor, fileIdx])

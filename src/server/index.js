@@ -1,8 +1,8 @@
 export const getFileContents = async (repository, fileName) => {
-  const code = await fetch(
+  const { src } = await fetch(
     `/.netlify/functions/code?repository=${repository}&file=${fileName}`
   ).then(response => response.json())
-  return code
+  return src
 }
 
 export const getRepositoryFiles = async repository => {
