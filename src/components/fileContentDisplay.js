@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react"
 import * as server from "../server"
 import { editor as monaco } from "monaco-editor"
+import Footer from "./footer"
 
 const FileContentDisplay = () => {
   const [editor, setEditor] = useState(null)
   const [fileContent, setFileContent] = useState("")
   const [srcIndex, setSrcIndex] = useState(0)
+  const [cursorPosition, setCursorPosition] = useState({
+    column: 1,
+    lineNumber: 1,
+  })
 
   useEffect(() => {
     setEditor(
@@ -28,6 +33,10 @@ const FileContentDisplay = () => {
         e.preventDefault()
         setSrcIndex(prevIdx => prevIdx + 3)
       })
+
+      editor.onDidChangeCursorPosition(({ position }) => {
+        setCursorPosition(position)
+      })
     }
   }, [editor])
 
@@ -35,7 +44,7 @@ const FileContentDisplay = () => {
     if (editor) {
       editor.setValue(fileContent.substring(0, srcIndex))
     }
-  }, [srcIndex])
+  }, [editor, fileContent, srcIndex])
 
   return (
     <div className="w-full h-full">
@@ -54,6 +63,7 @@ const FileContentDisplay = () => {
         ))} */}
       </div>
       <div id="editor" className="w-full h-full bg-gray-800"></div>
+      <Footer position={cursorPosition} />
     </div>
   )
 }
