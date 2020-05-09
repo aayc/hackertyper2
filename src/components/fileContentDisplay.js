@@ -12,6 +12,8 @@ const FileContentDisplay = () => {
     lineNumber: 1,
   })
   const [stats, setStats] = useState({ n_hacked_on: 0, n_lines_written: 0 })
+  const [repository, setRepository] = useState("aayc/hackertyper2")
+  const [hackFile, setHackFile] = useState("gatsby-config.js")
 
   useEffect(() => {
     setEditor(
@@ -24,7 +26,7 @@ const FileContentDisplay = () => {
     )
 
     server
-      .getFileContents("aayc/hackertyper2", "gatsby-config.js")
+      .getFileContents(repository, hackFile)
       .then(({ src, n_hacked_on, n_lines_written }) => {
         setFileContent(src)
         setStats({
@@ -32,7 +34,7 @@ const FileContentDisplay = () => {
           n_lines_written,
         })
       })
-  }, [])
+  }, [repository, hackFile])
 
   useEffect(() => {
     if (editor) {
@@ -70,7 +72,7 @@ const FileContentDisplay = () => {
         ))} */}
       </div>
       <div id="editor" className="w-full h-full bg-gray-800"></div>
-      <Footer position={cursorPosition} stats={stats} />
+      <Footer position={cursorPosition} stats={stats} repository={repository} />
     </div>
   )
 }

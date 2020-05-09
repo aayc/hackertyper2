@@ -10,12 +10,15 @@ const propTypes = {
     n_hacked_on: PropTypes.number,
     n_lines_written: PropTypes.number,
   }),
+  repository: PropTypes.string,
 }
-const Footer = ({ position, stats }) => {
+const Footer = ({ position, stats, repository }) => {
   return (
     <div className="fixed bottom-0 inset-x-0 h-8 bg-blue-600 flex justify-between items-center text-white px-4">
       <div className="flex">
-        {`Hacked on: ${stats.n_hacked_on} Lines written: ${stats.n_lines_written}`}
+        <div className="mr-3">{`Repository: ${repository}`}</div>
+        <div className="mr-3">{`Hacked on: ${stats.n_hacked_on} `}</div>
+        {`Lines written: ${stats.n_lines_written}`}
       </div>
       {`Ln ${position.lineNumber}, Col ${position.column}`}
     </div>
