@@ -27,7 +27,7 @@ async function getRepo(repo) {
 async function updateRepoStats(repo, fname, stats) {
   dbo = await getClient()
 
-  // TODO use fname
+  // TODO use fname instead of just the first file
   await dbo.db("github").collection("repos").updateOne({
     "name": repo
   }, {

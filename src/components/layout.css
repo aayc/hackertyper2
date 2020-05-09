@@ -6,7 +6,8 @@
 
 .text-sidebar {
     color: #CCCCCC;
-    font-family: monaco,Consolas,Lucida Console,monospace;
+    font-family: helvetica neue;
+    line-height: 27px;
 }
 
 .vscode-bg {
