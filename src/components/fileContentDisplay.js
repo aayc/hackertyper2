@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import * as server from "../server"
-import { editor as monaco } from "monaco-editor"
+//import { editor as monaco } from "monaco-editor"
 import Footer from "./footer"
 import cx from "classnames"
 import PropTypes from "prop-types"
@@ -64,14 +64,15 @@ const FileContentDisplay = ({ onRepoChange }) => {
     setHackFile(repoMainFiles[repository])
 
     if (!editor) {
-      setEditor(
-        monaco.create(document.getElementById("editor"), {
-          value: "",
-          theme: "vs-dark",
-          language: getLanguage(hackFile),
-          automaticLayout: true,
+      import("monaco-editor").then(monaco => {
+        setEditor(
+          monaco.editor.create(document.getElementById("editor"), {
+            value: "",
+            theme: "vs-dark",
+            language: getLanguage(hackFile),
+            automaticLayout: true,
+          }))
         })
-      )
     } else {
       // debugger
       editor.setValue("")
@@ -93,6 +94,7 @@ const FileContentDisplay = ({ onRepoChange }) => {
 
   useEffect(() => {
     if (editor) {
+      console.log("editor", editor)
       editor.onKeyDown(e => {
         e.preventDefault()
         setSrcIndex(prevIdx => prevIdx + velocity)

@@ -69,7 +69,7 @@ async function getClient() {
 }
 
 //(async () => { await clearRepos() })();
-//(async () => { await addRepo("torvalds/linux", "kernel/cpu.c"); })();
+//(async () => { await addRepo("azl397985856/leetcode", "daily/answers/647.palindromic-substrings.js"); })();
 //(async () => { console.log(await getRepo("aayc/hackertyper2")); })();
 /*
 (async () => { console.log(await updateRepoStats("aayc/hackertyper2", "gatsby-config.js", {
