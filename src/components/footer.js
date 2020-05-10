@@ -22,7 +22,7 @@ const Footer = ({ position, stats, repository, onClickRepo }) => {
           onClick={onClickRepo}
         >{`Repository: ${repository}`}</div>
         <div className="mr-3">{`Hacked on: ${stats.n_hacked_on} `}</div>
-        {`Lines written: ${stats.n_lines_written}`}
+        {`High score: ${stats.n_lines_written}`}
       </div>
       {`Ln ${position.lineNumber}, Col ${position.column}`}
     </div>
