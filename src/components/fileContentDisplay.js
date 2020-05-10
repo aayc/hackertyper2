@@ -13,6 +13,11 @@ const propTypes = {
   onRepoChange: PropTypes.func,
 }
 
+const repoMainFiles = {
+  "aayc/hackertyper2": "gatsby-config.js",
+  "torvalds/linux": "cpu.c",
+}
+
 const FileContentDisplay = ({ onRepoChange }) => {
   const [editor, setEditor] = useState(null)
   const [fileContent, setFileContent] = useState("")
@@ -54,6 +59,8 @@ const FileContentDisplay = ({ onRepoChange }) => {
   }, [])
 
   useEffect(() => {
+    setHackFile(repoMainFiles[repository])
+
     if (!editor) {
       setEditor(
         monaco.create(document.getElementById("editor"), {
@@ -123,7 +130,10 @@ const FileContentDisplay = ({ onRepoChange }) => {
       editor.revealLine(100000)
       setStats({
         n_hacked_on: stats.n_hacked_on,
-        n_lines_written: Math.max(editor.getModel().getLineCount(), stats.n_lines_written)
+        n_lines_written: Math.max(
+          editor.getModel().getLineCount(),
+          stats.n_lines_written
+        ),
       })
     }
   }, [editor, fileContent, srcIndex])
@@ -132,14 +142,14 @@ const FileContentDisplay = ({ onRepoChange }) => {
     <div className="w-full h-full">
       {showSearch && (
         <div
-          className="fixed inset-0 z-10 bg-transparent flex justify-center"
+          className="fixed inset-0 z-10 bg-transparent"
           onClick={() => {
             setShowSearch(false)
             setRepoSearch("")
           }}
         >
           <div
-            className="relative z-20 bg-gray-900 p-4 flex flex-col"
+            className="relative z-20 bg-gray-900 p-4 mx-auto flex flex-col"
             style={inputBoxStyle}
           >
             <input
