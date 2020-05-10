@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import * as server from "../server"
 import { editor as monaco } from "monaco-editor"
 import Footer from "./footer"
+import cx from "classnames"
 
 const FileContentDisplay = () => {
   const [editor, setEditor] = useState(null)
@@ -14,6 +15,7 @@ const FileContentDisplay = () => {
   const [stats, setStats] = useState({ n_hacked_on: 0, n_lines_written: 0 })
   const [repository, setRepository] = useState("torvalds/linux")
   const [hackFile, setHackFile] = useState("cpu.c")
+  const [fileIdx, setFileIdx] = useState(0)
 
   useEffect(() => {
     setEditor(
@@ -57,19 +59,19 @@ const FileContentDisplay = () => {
 
   return (
     <div className="w-full h-full overflow-hidden">
-      <div className="flex w-full h-12 bg-gray-800 text-white">
-        {/* {files.map((file, index) => (
+      <div className="flex w-full h-12 vscode-bg text-white text-sidebar">
+        {[hackFile].map((file, index) =>
           <button
             className={cx(
-              index === fileIdx ? "bg-black" : "",
-              "flex px-4 justify-center items-center border-r border-gray-900 cursor-pointer"
+              index === fileIdx ? "vscode-bg-dark" : "",
+              "flex px-4 justify-center items-center vscode-bg cursor-pointer"
             )}
-            key={file.name}
+            key={file}
             onClick={() => setFileIdx(index)}
           >
-            {file.name}
+            {file}
           </button>
-        ))} */}
+        )}
       </div>
       <div id="editor" className="w-full h-full bg-gray-800"></div>
       <Footer position={cursorPosition} stats={stats} repository={repository} />
