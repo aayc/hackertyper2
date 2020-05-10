@@ -50,7 +50,7 @@ const Sidebar = () => {
 
   return (
     // TODO why does this stretch
-    <div className="vscode-bg w-56 text-sidebar">
+    <div className="vscode-bg w-56 text-sidebar overflow-scroll disable-scrollbars h-full">
       <div className="ml-4">
         <div className="flex flex-col h-10 justify-center">
           <p>EXPLORER</p>

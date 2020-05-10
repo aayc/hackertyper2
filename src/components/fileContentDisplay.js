@@ -56,7 +56,7 @@ const FileContentDisplay = () => {
   }, [editor, fileContent, srcIndex])
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full overflow-hidden">
       <div className="flex w-full h-12 bg-gray-800 text-white">
         {/* {files.map((file, index) => (
           <button
