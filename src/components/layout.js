@@ -5,7 +5,7 @@ import "./layout.css"
 
 const Layout = ({ children }) => {
   return (
-    <div className="absolute inset-0 pb-8">
+    <div className="absolute inset-0 pb-8 overflow-none">
       <div className="flex w-full h-full">{children}</div>
     </div>
   )

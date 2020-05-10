@@ -65,7 +65,7 @@ async function getClient() {
 }
 
 //(async () => { await clearRepos() })();
-//(async () => { await addRepo("aayc/hackertyper2", "gatsby-config.js"); })();
+//(async () => { await addRepo("torvalds/linux", "kernel/cpu.c"); })();
 //(async () => { console.log(await getRepo("aayc/hackertyper2")); })();
 /*
 (async () => { console.log(await updateRepoStats("aayc/hackertyper2", "gatsby-config.js", {
