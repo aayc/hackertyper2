@@ -112,7 +112,10 @@ const FileContentDisplay = () => {
       {showSearch && (
         <div
           className="fixed inset-0 z-10 bg-transparent flex justify-center"
-          onClick={() => setShowSearch(false)}
+          onClick={() => {
+            setShowSearch(false)
+            setRepoSearch("")
+          }}
         >
           <div
             className="relative z-20 bg-gray-900 p-4 flex flex-col"
@@ -138,7 +141,7 @@ const FileContentDisplay = () => {
         </div>
       )}
       <div className="flex h-12 vscode-bg text-white text-sidebar">
-        {[hackFile].map((file, index) =>
+        {[hackFile].map((file, index) => (
           <button
             className={cx(
               index === fileIdx ? "vscode-bg-dark" : "",
@@ -149,7 +152,7 @@ const FileContentDisplay = () => {
           >
             {file}
           </button>
-        )}
+        ))}
       </div>
       <div id="editor" className="w-full h-full bg-gray-800"></div>
       <Footer
