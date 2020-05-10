@@ -16,6 +16,7 @@ const propTypes = {
 const repoMainFiles = {
   "aayc/hackertyper2": "gatsby-config.js",
   "torvalds/linux": "cpu.c",
+  "azl397985856/leetcode": "647.palindromic-substrings.js",
 }
 
 const FileContentDisplay = ({ onRepoChange }) => {
