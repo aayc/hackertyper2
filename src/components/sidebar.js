@@ -8,7 +8,7 @@ const Sidebar = () => {
   const [fileTree, setFileTree] = useState([])
 
   useEffect(() => {
-    fetch("/.netlify/functions/dir?repository=aayc/hackertyper2")
+    fetch("/.netlify/functions/dir?repository=torvalds/linux")
       .then(response => response.json())
       .then(body => {
         body.sort((a, b) => {

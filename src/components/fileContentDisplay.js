@@ -12,8 +12,8 @@ const FileContentDisplay = () => {
     lineNumber: 1,
   })
   const [stats, setStats] = useState({ n_hacked_on: 0, n_lines_written: 0 })
-  const [repository, setRepository] = useState("aayc/hackertyper2")
-  const [hackFile, setHackFile] = useState("gatsby-config.js")
+  const [repository, setRepository] = useState("torvalds/linux")
+  const [hackFile, setHackFile] = useState("cpu.c")
 
   useEffect(() => {
     setEditor(

@@ -45,8 +45,9 @@ module.exports = {
     }
     else {
       // TODO update the sha automatically
-      let sha = "af96062bc88d567240e54f8a0be79d8853de6c3f"
-      let response = await doRequest(" https://api.github.com/repos/" + repo + "/git/trees/" + sha + "?recursive=true")
+      let sha_info = JSON.parse(await doRequest("https://api.github.com/repos/" + repo + "/commits"))
+      let sha = sha_info[0].sha
+      let response = await doRequest("https://api.github.com/repos/" + repo + "/git/trees/" + sha + "?recursive=true")
       let body = JSON.parse(response)
       return convertToHierarchy(body.tree.map(entry => entry.path))
     }
