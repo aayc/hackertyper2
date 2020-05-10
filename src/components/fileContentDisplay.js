@@ -3,12 +3,22 @@ import * as server from "../server"
 import { editor as monaco } from "monaco-editor"
 import Footer from "./footer"
 import cx from "classnames"
+import PropTypes from "prop-types"
 
 const inputBoxStyle = {
   width: "600px",
 }
 
-const FileContentDisplay = () => {
+const propTypes = {
+  onRepoChange: PropTypes.func,
+}
+
+const repoMainFiles = {
+  "aayc/hackertyper2": "gatsby-config.js",
+  "torvalds/linux": "cpu.c",
+}
+
+const FileContentDisplay = ({ onRepoChange }) => {
   const [editor, setEditor] = useState(null)
   const [fileContent, setFileContent] = useState("")
   const [srcIndex, setSrcIndex] = useState(0)
@@ -49,6 +59,8 @@ const FileContentDisplay = () => {
   }, [])
 
   useEffect(() => {
+    setHackFile(repoMainFiles[repository])
+
     if (!editor) {
       setEditor(
         monaco.create(document.getElementById("editor"), {
@@ -62,6 +74,8 @@ const FileContentDisplay = () => {
       // debugger
       editor.setValue("")
     }
+
+    onRepoChange(repository)
 
     server.getRepositoryFiles(repository).then(files => {
       console.log(files)
@@ -133,14 +147,14 @@ const FileContentDisplay = () => {
     <div className="w-full h-full">
       {showSearch && (
         <div
-          className="fixed inset-0 z-10 bg-transparent flex justify-center"
+          className="fixed inset-0 z-10 bg-transparent"
           onClick={() => {
             setShowSearch(false)
             setRepoSearch("")
           }}
         >
           <div
-            className="relative z-20 bg-gray-900 p-4 flex flex-col"
+            className="relative z-20 bg-gray-900 p-4 mx-auto flex flex-col"
             style={inputBoxStyle}
           >
             <input
@@ -186,5 +200,7 @@ const FileContentDisplay = () => {
     </div>
   )
 }
+
+FileContentDisplay.propTypes = propTypes
 
 export default FileContentDisplay

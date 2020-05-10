@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react"
+import PropTypes from "prop-types"
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFile, faKey, faCodeBranch } from '@fortawesome/free-solid-svg-icons'
-import { faJs } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faFile, faKey, faCodeBranch } from "@fortawesome/free-solid-svg-icons"
+import { faJs } from "@fortawesome/free-brands-svg-icons"
 
-const Sidebar = () => {
+const propTypes = {
+  repo: PropTypes.string,
+}
+const Sidebar = ({ repo }) => {
   const [fileTree, setFileTree] = useState([])
 
   useEffect(() => {
-    fetch("/.netlify/functions/dir?repository=torvalds/linux")
+    fetch(`/.netlify/functions/dir?repository=${repo}`)
       .then(response => response.json())
       .then(body => {
         body.sort((a, b) => {
@@ -22,9 +26,9 @@ const Sidebar = () => {
         })
         setFileTree(body)
       })
-  }, [])
+  }, [repo])
 
-  const chooseIcon = (filename) => {
+  const chooseIcon = filename => {
     if (filename.endsWith(".js")) {
       return faJs
     } else if (filename === "LICENSE") {
@@ -38,11 +42,15 @@ const Sidebar = () => {
 
   const reifyFileNode = node => {
     if (node.children.length === 0) {
-
-      return (<div class="flex">
-                <span><FontAwesomeIcon icon={chooseIcon(node.name)} />&nbsp;&nbsp;</span>
-                <p key={node.name}>{node.name}</p>
-              </div>)
+      return (
+        <div class="flex">
+          <span>
+            <FontAwesomeIcon icon={chooseIcon(node.name)} />
+            &nbsp;&nbsp;
+          </span>
+          <p key={node.name}>{node.name}</p>
+        </div>
+      )
     } else {
       return <p key={node.name}>{"> " + node.name}</p>
     }
@@ -61,5 +69,7 @@ const Sidebar = () => {
     </div>
   )
 }
+
+Sidebar.propTypes = propTypes
 
 export default Sidebar
