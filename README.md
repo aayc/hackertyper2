@@ -31,10 +31,10 @@ Navigate to http://localhost:8000 in your browser to see Hacker Studio in action
 
 Click on the bottom to choose a repository:
 
-![Choosing a repository](./public/BasePhoto.png)
+![Choosing a repository](./images/BasePhoto.png)
 
-![Search for a repository](./public/ChooseRepo.png)
+![Search for a repository](./images/ChooseRepo.png)
 
 Now type any keys you want and watch the code magically fill in!
 
-![Code filling in](./public/CodeFillIn.png)
+![Code filling in](./images/CodeFillIn.png)
