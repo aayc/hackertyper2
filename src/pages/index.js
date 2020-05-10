@@ -6,7 +6,7 @@ import Sidebar from "../components/sidebar"
 import FileContentDisplay from "../components/fileContentDisplay"
 
 const IndexPage = () => {
-  const [repo, setRepo] = useState("torvalds/linux")
+  const [repo, setRepo] = useState("aayc/hackertyper2")
 
   return (
     <Layout>
