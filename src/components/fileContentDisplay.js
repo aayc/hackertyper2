@@ -27,6 +27,16 @@ const FileContentDisplay = () => {
   var time = Date.now()
   var velocity = 1
 
+  function getLanguage(fileName) {
+    if (fileName.endsWith(".c")) {
+      return "c"
+    } else if (fileName.endsWith(".js")) {
+      return "javascript"
+    } else if (fileName.endsWith(".py")) {
+      return "python"
+    }
+  }
+
   useEffect(() => {
     setFilteredRepos(
       availableRespositories.filter(repoName => repoName.includes(repoSearch))
@@ -43,7 +53,7 @@ const FileContentDisplay = () => {
       monaco.create(document.getElementById("editor"), {
         value: "",
         theme: "vs-dark",
-        language: "javascript",
+        language: getLanguage(hackFile),
         automaticLayout: true,
       })
     )
@@ -74,11 +84,11 @@ const FileContentDisplay = () => {
         } else if (timediff < 1500) {
           velocity -= 3
         } else if (timediff < 2000) {
-          velocity -= 4
+          velocity /= 2
         } else if (timediff < 3500) {
-          velocity -= 5
+          velocity = 1
         }
-        velocity = Math.max(Math.min(velocity, 50), 1)
+        velocity = Math.max(Math.min(parseInt(velocity), 50), 1)
 
         time = Date.now()
       })
@@ -93,6 +103,7 @@ const FileContentDisplay = () => {
     if (editor) {
       editor.setValue(fileContent.substring(0, srcIndex))
       editor.setPosition({ lineNumber: 10000, column: 4000 })
+      editor.revealLine(100000)
     }
   }, [editor, fileContent, srcIndex])
 
