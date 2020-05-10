@@ -3,6 +3,7 @@ const { MongoClient } = require("mongodb")
 require("dotenv").config()
 const uri = process.env.MONGOLAB_URI
 var connected = false;
+console.log("client uri: ", uri)
 const client = MongoClient(uri)
 
 async function addRepo(repo, fname) {
@@ -28,7 +29,6 @@ async function updateRepoStats(repo, fname, stats) {
   dbo = await getClient()
 
   // TODO use fname instead of just the first file
-  console.log("stats: ", stats)
   await dbo.db("github").collection("repos").updateOne({
     "name": repo
   }, {
@@ -69,7 +69,7 @@ async function getClient() {
 }
 
 //(async () => { await clearRepos() })();
-//(async () => { await addRepo("torvalds/linux", "kernel/cpu.c"); })();
+//(async () => { await addRepo("azl397985856/leetcode", "daily/answers/647.palindromic-substrings.js"); })();
 //(async () => { console.log(await getRepo("aayc/hackertyper2")); })();
 /*
 (async () => { console.log(await updateRepoStats("aayc/hackertyper2", "gatsby-config.js", {

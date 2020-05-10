@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import * as server from "../server"
-import { editor as monaco } from "monaco-editor"
+//import { editor as monaco } from "monaco-editor"
 import Footer from "./footer"
 import cx from "classnames"
 import PropTypes from "prop-types"
@@ -31,8 +31,8 @@ const FileContentDisplay = ({ onRepoChange }) => {
     lineNumber: 1,
   })
   const [stats, setStats] = useState({ n_hacked_on: 0, n_lines_written: 0 })
-  const [repository, setRepository] = useState("torvalds/linux")
-  const [hackFile, setHackFile] = useState("cpu.c")
+  const [repository, setRepository] = useState("aayc/hackertyper2")
+  const [hackFile, setHackFile] = useState("gatsby-config.js")
   const [fileIdx, setFileIdx] = useState(0)
   const [availableRespositories, setAvailableRepositories] = useState([])
   const [showSearch, setShowSearch] = useState(false)
@@ -64,14 +64,15 @@ const FileContentDisplay = ({ onRepoChange }) => {
     setHackFile(repoMainFiles[repository])
 
     if (!editor) {
-      setEditor(
-        monaco.create(document.getElementById("editor"), {
-          value: "",
-          theme: "vs-dark",
-          language: getLanguage(hackFile),
-          automaticLayout: true,
+      import("monaco-editor").then(monaco => {
+        setEditor(
+          monaco.editor.create(document.getElementById("editor"), {
+            value: "",
+            theme: "vs-dark",
+            language: getLanguage(hackFile),
+            automaticLayout: true,
+          }))
         })
-      )
     } else {
       // debugger
       editor.setValue("")
@@ -93,6 +94,7 @@ const FileContentDisplay = ({ onRepoChange }) => {
 
   useEffect(() => {
     if (editor) {
+      console.log("editor", editor)
       editor.onKeyDown(e => {
         e.preventDefault()
         setSrcIndex(prevIdx => prevIdx + velocity)
