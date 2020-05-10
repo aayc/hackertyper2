@@ -49,14 +49,23 @@ const FileContentDisplay = () => {
   }, [])
 
   useEffect(() => {
-    setEditor(
-      monaco.create(document.getElementById("editor"), {
-        value: "",
-        theme: "vs-dark",
-        language: getLanguage(hackFile),
-        automaticLayout: true,
-      })
-    )
+    if (!editor) {
+      setEditor(
+        monaco.create(document.getElementById("editor"), {
+          value: "",
+          theme: "vs-dark",
+          language: getLanguage(hackFile),
+          automaticLayout: true,
+        })
+      )
+    } else {
+      // debugger
+      editor.setValue("")
+    }
+
+    server.getRepositoryFiles(repository).then(files => {
+      console.log(files)
+    })
 
     server
       .getFileContents(repository, hackFile)
@@ -67,6 +76,7 @@ const FileContentDisplay = () => {
           n_lines_written,
         })
       })
+    setSrcIndex(0)
   }, [repository, hackFile])
 
   useEffect(() => {
