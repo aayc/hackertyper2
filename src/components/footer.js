@@ -11,12 +11,16 @@ const propTypes = {
     n_lines_written: PropTypes.number,
   }),
   repository: PropTypes.string,
+  onClickRepo: PropTypes.func,
 }
-const Footer = ({ position, stats, repository }) => {
+const Footer = ({ position, stats, repository, onClickRepo }) => {
   return (
     <div className="fixed bottom-0 inset-x-0 h-8 bg-blue-600 flex justify-between items-center text-white px-4">
-      <div className="flex">
-        <div className="mr-3">{`Repository: ${repository}`}</div>
+      <div className="flex items-center h-full">
+        <div
+          className="mr-3 hover:bg-blue-400 cursor-pointer h-full flex items-center px-3"
+          onClick={onClickRepo}
+        >{`Repository: ${repository}`}</div>
         <div className="mr-3">{`Hacked on: ${stats.n_hacked_on} `}</div>
         {`Lines written: ${stats.n_lines_written}`}
       </div>

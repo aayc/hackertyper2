@@ -11,3 +11,10 @@ export const getRepositoryFiles = async repository => {
   ).then(response => response.json())
   return body
 }
+
+export const getAvailableRepositories = async () => {
+  const res = await fetch("/.netlify/functions/list_repos").then(response =>
+    response.json()
+  )
+  return res
+}
