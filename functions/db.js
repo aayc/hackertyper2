@@ -3,6 +3,7 @@ const { MongoClient } = require("mongodb")
 require("dotenv").config()
 const uri = process.env.MONGOLAB_URI
 var connected = false;
+console.log("client uri: ", uri)
 const client = MongoClient(uri)
 
 async function addRepo(repo, fname) {
@@ -28,7 +29,6 @@ async function updateRepoStats(repo, fname, stats) {
   dbo = await getClient()
 
   // TODO use fname instead of just the first file
-  console.log("stats: ", stats)
   await dbo.db("github").collection("repos").updateOne({
     "name": repo
   }, {
