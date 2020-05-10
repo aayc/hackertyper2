@@ -3,12 +3,17 @@ import * as server from "../server"
 import { editor as monaco } from "monaco-editor"
 import Footer from "./footer"
 import cx from "classnames"
+import PropTypes from "prop-types"
 
 const inputBoxStyle = {
   width: "600px",
 }
 
-const FileContentDisplay = () => {
+const propTypes = {
+  onRepoChange: PropTypes.func,
+}
+
+const FileContentDisplay = ({ onRepoChange }) => {
   const [editor, setEditor] = useState(null)
   const [fileContent, setFileContent] = useState("")
   const [srcIndex, setSrcIndex] = useState(0)
@@ -62,6 +67,8 @@ const FileContentDisplay = () => {
       // debugger
       editor.setValue("")
     }
+
+    onRepoChange(repository)
 
     server.getRepositoryFiles(repository).then(files => {
       console.log(files)
@@ -174,5 +181,7 @@ const FileContentDisplay = () => {
     </div>
   )
 }
+
+FileContentDisplay.propTypes = propTypes
 
 export default FileContentDisplay
