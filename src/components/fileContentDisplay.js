@@ -17,6 +17,9 @@ const repoMainFiles = {
   "aayc/hackertyper2": "gatsby-config.js",
   "torvalds/linux": "cpu.c",
 }
+var previous_high_score = 100000;
+var time = Date.now()
+var velocity = 1
 
 const FileContentDisplay = ({ onRepoChange }) => {
   const [editor, setEditor] = useState(null)
@@ -34,8 +37,6 @@ const FileContentDisplay = ({ onRepoChange }) => {
   const [showSearch, setShowSearch] = useState(false)
   const [repoSearch, setRepoSearch] = useState("")
   const [filteredRepos, setFilteredRepos] = useState([])
-  var time = Date.now()
-  var velocity = 1
 
   function getLanguage(fileName) {
     if (fileName.endsWith(".c")) {
@@ -76,15 +77,11 @@ const FileContentDisplay = ({ onRepoChange }) => {
     }
 
     onRepoChange(repository)
-
-    server.getRepositoryFiles(repository).then(files => {
-      console.log(files)
-    })
-
     server
       .getFileContents(repository, hackFile)
       .then(({ src, n_hacked_on, n_lines_written }) => {
         setFileContent(src)
+        previous_high_score = n_lines_written
         setStats({
           n_hacked_on: n_hacked_on + 1,
           n_lines_written: n_lines_written,
@@ -135,8 +132,8 @@ const FileContentDisplay = ({ onRepoChange }) => {
           n_lines_written: line
         })
 
-        if (stats.n_lines_written % 500 == 0) {
-          console.log("Updating stats")
+        if (stats.n_lines_written - previous_high_score > 500) {
+          previous_high_score = stats.n_lines_written
           server.updateRepositoryStats(repository, hackFile, stats)
         }
       }
