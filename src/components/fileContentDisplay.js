@@ -24,6 +24,8 @@ const FileContentDisplay = () => {
   const [showSearch, setShowSearch] = useState(false)
   const [repoSearch, setRepoSearch] = useState("")
   const [filteredRepos, setFilteredRepos] = useState([])
+  var time = Date.now()
+  var velocity = 1
 
   useEffect(() => {
     setFilteredRepos(
@@ -61,7 +63,24 @@ const FileContentDisplay = () => {
     if (editor) {
       editor.onKeyDown(e => {
         e.preventDefault()
-        setSrcIndex(prevIdx => prevIdx + 3)
+        setSrcIndex(prevIdx => prevIdx + velocity)
+        var timediff = Date.now() - time
+        if (timediff < 100) {
+          velocity += 1
+        } else if (timediff < 500) {
+          velocity -= 1
+        } else if (timediff < 1000) {
+          velocity -= 2
+        } else if (timediff < 1500) {
+          velocity -= 3
+        } else if (timediff < 2000) {
+          velocity -= 4
+        } else if (timediff < 3500) {
+          velocity -= 5
+        }
+        velocity = Math.max(Math.min(velocity, 50), 1)
+
+        time = Date.now()
       })
 
       editor.onDidChangeCursorPosition(({ position }) => {
