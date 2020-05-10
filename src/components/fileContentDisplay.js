@@ -97,9 +97,7 @@ const FileContentDisplay = () => {
           </div>
         </div>
       )}
-      <div className="flex w-full h-12 bg-gray-800 text-white"></div>
-      {/* <div className="w-full h-full overflow-hidden">
-      <div className="flex w-full h-12 vscode-bg text-white text-sidebar">
+      <div className="flex h-12 vscode-bg text-white text-sidebar">
         {[hackFile].map((file, index) =>
           <button
             className={cx(
@@ -112,7 +110,7 @@ const FileContentDisplay = () => {
             {file}
           </button>
         )}
-      </div> */}
+      </div>
       <div id="editor" className="w-full h-full bg-gray-800"></div>
       <Footer
         position={cursorPosition}
