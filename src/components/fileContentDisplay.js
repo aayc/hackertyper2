@@ -22,7 +22,14 @@ const FileContentDisplay = () => {
   const [fileIdx, setFileIdx] = useState(0)
   const [availableRespositories, setAvailableRepositories] = useState([])
   const [showSearch, setShowSearch] = useState(false)
+  const [repoSearch, setRepoSearch] = useState("")
+  const [filteredRepos, setFilteredRepos] = useState([])
 
+  useEffect(() => {
+    setFilteredRepos(
+      availableRespositories.filter(repoName => repoName.includes(repoSearch))
+    )
+  }, [repoSearch, availableRespositories])
   useEffect(() => {
     server.getAvailableRepositories().then(repos => {
       setAvailableRepositories(repos)
@@ -85,8 +92,11 @@ const FileContentDisplay = () => {
               className="w-full bg-gray-800 border border-white text-white h-12 px-2"
               placeholder="Search repositories"
               autoComplete={false}
+              autoFocus={true}
+              value={repoSearch}
+              onChange={e => setRepoSearch(e.target.value)}
             />
-            {availableRespositories.map(repoName => (
+            {filteredRepos.map(repoName => (
               <button
                 className="flex justify-start text-white py-3 px-2 hover:bg-gray-700 cursor-pointer"
                 onClick={() => setRepository(repoName)}
