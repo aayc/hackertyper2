@@ -54,6 +54,7 @@ const FileContentDisplay = () => {
   useEffect(() => {
     if (editor) {
       editor.setValue(fileContent.substring(0, srcIndex))
+      editor.setPosition({lineNumber: 10000, column: 4000})
     }
   }, [editor, fileContent, srcIndex])
 
