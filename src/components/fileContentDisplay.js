@@ -63,7 +63,7 @@ const FileContentDisplay = () => {
       .then(({ src, n_hacked_on, n_lines_written }) => {
         setFileContent(src)
         setStats({
-          n_hacked_on,
+          n_hacked_on: n_hacked_on + 1,
           n_lines_written,
         })
       })
@@ -104,6 +104,10 @@ const FileContentDisplay = () => {
       editor.setValue(fileContent.substring(0, srcIndex))
       editor.setPosition({ lineNumber: 10000, column: 4000 })
       editor.revealLine(100000)
+      setStats({
+        n_hacked_on: stats.n_hacked_on,
+        n_lines_written: Math.max(editor.getModel().getLineCount(), stats.n_lines_written)
+      })
     }
   }, [editor, fileContent, srcIndex])
 
