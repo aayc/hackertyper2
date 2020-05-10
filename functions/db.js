@@ -28,14 +28,18 @@ async function updateRepoStats(repo, fname, stats) {
   dbo = await getClient()
 
   // TODO use fname instead of just the first file
+  console.log("stats: ", stats)
   await dbo.db("github").collection("repos").updateOne({
     "name": repo
   }, {
-    "$set": {
+    "$max": {
       "files.0.n_hacked_on": stats.n_hacked_on || 0,
       "files.0.n_lines_written": stats.n_lines_written || 0
     }
   })
+  console.log(await dbo.db("github").collection("repos").findOne({
+    "name": repo
+  }))
 }
 
 async function listRepos() {

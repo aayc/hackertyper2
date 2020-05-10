@@ -21,7 +21,7 @@ const Footer = ({ position, stats, repository, onClickRepo }) => {
           className="mr-3 hover:bg-blue-400 cursor-pointer h-full flex items-center px-3"
           onClick={onClickRepo}
         >{`Repository: ${repository}`}</div>
-        <div className="mr-3">{`Hacked on: ${stats.n_hacked_on} `}</div>
+        <div className="mr-3">{`${stats.n_hacked_on} people have hacked on this file`}</div>
         {`High score: ${stats.n_lines_written}`}
       </div>
       {`Ln ${position.lineNumber}, Col ${position.column}`}

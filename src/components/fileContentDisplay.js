@@ -88,7 +88,7 @@ const FileContentDisplay = ({ onRepoChange }) => {
         setFileContent(src)
         setStats({
           n_hacked_on: n_hacked_on + 1,
-          n_lines_written,
+          n_lines_written: n_lines_written,
         })
       })
     setSrcIndex(0)
@@ -129,13 +129,18 @@ const FileContentDisplay = ({ onRepoChange }) => {
       editor.setValue(fileContent.substring(0, srcIndex))
       editor.setPosition({ lineNumber: 10000, column: 4000 })
       editor.revealLine(100000)
-      setStats({
-        n_hacked_on: stats.n_hacked_on,
-        n_lines_written: Math.max(
-          editor.getModel().getLineCount(),
-          stats.n_lines_written
-        ),
-      })
+      var line = editor.getModel().getLineCount()
+      if (line > stats.n_lines_written) {
+        setStats({
+          n_hacked_on: stats.n_hacked_on,
+          n_lines_written: line
+        })
+
+        if (stats.n_lines_written % 500 == 0) {
+          console.log("Updating stats")
+          server.updateRepositoryStats(repository, hackFile, stats)
+        }
+      }
     }
   }, [editor, fileContent, srcIndex])
 
